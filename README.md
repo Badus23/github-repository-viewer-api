@@ -31,7 +31,7 @@ GitHub Repository Viewer API is a RESTful service designed to retrieve informati
 
 To run this project, you need to have:
 
-- Java JDK 11 or higher
+- Java JDK 21 or higher
 - Apache Maven
 
 ### Installation and Running
