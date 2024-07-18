@@ -38,7 +38,7 @@ To run this project, you need to have:
 
 Clone the repository:
 ```
-$ git clone https://git-repository-viewer-api.git
+$ git clone https://github.com/Badus23/github-repository-viewer-api.git
 $ cd git-repository-viewer-api
 ```
 Build the project:
