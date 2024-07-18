@@ -1,6 +1,6 @@
 package com.bohdan.github.controllers;
 
-import com.bohdan.github.exception.UserNotFoundException;
+import com.bohdan.github.exceptions.UserNotFoundException;
 import com.bohdan.github.models.ErrorResponse;
 import com.bohdan.github.models.Repository;
 import com.bohdan.github.services.GitHubService;
@@ -35,22 +35,23 @@ public class GitHubController {
             @RequestHeader(value = "Accept", required = false) String acceptHeader) {
 
         if (!"application/json".equals(acceptHeader)) {
-            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_ACCEPTABLE.value(), notAcceptableErrorMessage);
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorResponse);
+            return createErrorResponse(HttpStatus.NOT_ACCEPTABLE, notAcceptableErrorMessage);
         }
 
         try {
             List<Repository> repositories = gitHubService.getRepositories(username);
             return ResponseEntity.ok(repositories);
         } catch (UserNotFoundException e) {
-            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), userNotFoundErrorMessage);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+            return createErrorResponse(HttpStatus.NOT_FOUND, userNotFoundErrorMessage);
         } catch (HttpClientErrorException e) {
-            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(), forbiddenErrorMessage);
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+            return createErrorResponse(HttpStatus.FORBIDDEN, forbiddenErrorMessage);
         } catch (Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), internalServerErrorMessage);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+            return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, internalServerErrorMessage);
         }
+    }
+
+    private ResponseEntity<?> createErrorResponse(HttpStatus status, String message) {
+        ErrorResponse errorResponse = new ErrorResponse(status.value(), message);
+        return ResponseEntity.status(status).body(errorResponse);
     }
 }

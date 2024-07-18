@@ -1,6 +1,6 @@
 package com.bohdan.github.controllers;
 
-import com.bohdan.github.exception.UserNotFoundException;
+import com.bohdan.github.exceptions.UserNotFoundException;
 import com.bohdan.github.models.Repository;
 import com.bohdan.github.services.GitHubService;
 import org.junit.jupiter.api.Test;

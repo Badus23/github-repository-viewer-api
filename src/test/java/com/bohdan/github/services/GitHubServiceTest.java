@@ -1,6 +1,6 @@
 package com.bohdan.github.services;
 
-import com.bohdan.github.exception.UserNotFoundException;
+import com.bohdan.github.exceptions.UserNotFoundException;
 import com.bohdan.github.models.Branch;
 import com.bohdan.github.models.Repository;
 import com.fasterxml.jackson.databind.JsonNode;
